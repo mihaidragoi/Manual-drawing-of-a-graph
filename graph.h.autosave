@@ -1,0 +1,15 @@
+#ifndef GRAPH_H
+#define GRAPH_H
+#include "node.h"
+#include "edge.h"
+
+class Graph
+{
+protected:
+    Node** m_nodes;
+    
+public:
+    Graph();
+};
+
+#endif // GRAPH_H
