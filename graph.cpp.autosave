@@ -1,5 +1,7 @@
 #include "graph.h"
 #include <QString>
+#include <QFile>
+#include <QTextStream>
 
 Graph::Graph(): m_nodes(nullptr), m_edges(nullptr), matrix(nullptr), m_numberNodes(0),
     m_numberEdges(0), m_oriented(false){
@@ -31,8 +33,12 @@ void Graph::addNode(QPoint p)
         delete []m_nodes;
         m_nodes=aux;
         m_numberNodes++;
-
-        AdjustMatrix(matrix, "Matrix.txt");
+        
+        int **auxMatrix=new int*[m_numberNodes+1];
+        for(int i=0;i<m_numberNodes;i++)
+            auxMatrix[i]=new int[m_numberNodes+1];
+        for(int i=0;i<m_numberNodes;i++)
+            for(int j=0;j<m)
     }
 }
 
@@ -55,23 +61,37 @@ void Graph::addEgde(Node f, Node s)
         Edge* rez= new Edge[m_numberEdges];
         for(int i=0;i<m_numberEdges;i++)
             rez[i]=m_edges[i];
-        rez[m_numberEdges]
+        rez[m_numberEdges].setFirst(first);
+        rez[m_numberEdges].setSecond(second);
+        delete[] m_edges;
+        m_edges=rez;
+        m_numberEdges++;
+        
+        int i=first->getIndex()-1;
+        int j=second->getIndex()-1;
+        matrix[i][j]=1;
+        if(!m_oriented)
+            matrix[j][i]=1;
     }
 }
 
 Node *Graph::getNodes()
 {
-
+    return m_nodes;
 }
 
 Edge *Graph::getEdges()
 {
-
-}
+    return m_edges;
+}  
 
 void Graph::AdjustMatrix(int **matrix, QString filename)
 {
-
+    QFile fin(filename);
+    if(!fin.open(QIODeviceBase::WriteOnly|QIODeviceBase::Text))
+        throw std::runtime_error("Cannot opne the file! Please try again later");
+    QTextStream out(&fin);
+    out<<m_numberNodes<<"\n";
 }
 
 void Graph::setOriented(bool value)
