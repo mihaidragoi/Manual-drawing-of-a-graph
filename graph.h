@@ -25,6 +25,8 @@ public:
     void AdjustMatrix(int **matrix, QString filename);
     void setOriented(bool value);
     bool getOriented();
+    int getNumberNodes();
+    int getNumberEdges();
 };
 
 #endif // GRAPH_H

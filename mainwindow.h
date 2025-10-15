@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMouseEvent>
+
+#include "graph.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -17,7 +20,12 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void mouseReleaseEvent(QMouseEvent *m) override;
+    void paintEvent(QPaintEvent *e) override;
+
 private:
     Ui::MainWindow *ui;
+    Graph m_graph;
+    Node m_firstNode;
 };
 #endif // MAINWINDOW_H
