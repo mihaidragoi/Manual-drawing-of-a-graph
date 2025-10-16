@@ -27,7 +27,6 @@ void Graph::addNode(QPoint p)
 
     if (ok == 0)
     {
-        // 🟢 PAS 1: salvează indexurile muchiilor curente
         int* idx1 = new int[m_numberEdges];
         int* idx2 = new int[m_numberEdges];
         for (int i = 0; i < m_numberEdges; i++)
@@ -36,19 +35,15 @@ void Graph::addNode(QPoint p)
             idx2[i] = m_edges[i].getSecond()->getIndex() - 1;
         }
 
-        // 🟢 PAS 2: realocă vectorul de noduri
         Node* aux = new Node[m_numberNodes + 1];
         for (int i = 0; i < m_numberNodes; i++)
             aux[i] = m_nodes[i];
-
         aux[m_numberNodes].setIndex(m_numberNodes + 1);
         aux[m_numberNodes].setCoord(p);
-
         delete [] m_nodes;
         m_nodes = aux;
         m_numberNodes++;
 
-        // 🟢 PAS 3: refă pointerii muchiilor după realocare
         for (int i = 0; i < m_numberEdges; i++)
         {
             m_edges[i].setFirst(&m_nodes[idx1[i]]);
@@ -57,7 +52,6 @@ void Graph::addNode(QPoint p)
         delete [] idx1;
         delete [] idx2;
 
-        // 🟢 PAS 4: realocă și extinde matricea de adiacență
         int** auxMatrix = new int*[m_numberNodes];
         for (int i = 0; i < m_numberNodes; i++)
             auxMatrix[i] = new int[m_numberNodes];

@@ -22,10 +22,17 @@ public:
 
     void mouseReleaseEvent(QMouseEvent *m) override;
     void paintEvent(QPaintEvent *e) override;
+    void mousePressEvent(QMouseEvent *m) override;
+    void mouseMoveEvent(QMouseEvent *m) override;
+
+private slots:
+    void on_checkBox_checkStateChanged(const Qt::CheckState &arg1);
 
 private:
     Ui::MainWindow *ui;
     Graph m_graph;
     Node m_firstNode;
+    bool m_dragged=false;
+    Node* m_draggedNode=nullptr;
 };
 #endif // MAINWINDOW_H
