@@ -3,8 +3,7 @@
 #include <QFile>
 #include <QTextStream>
 
-Graph::Graph(): m_nodes(nullptr), m_edges(nullptr), matrix(nullptr), m_numberNodes(0),
-    m_numberEdges(0), m_oriented(false){
+Graph::Graph(): m_nodes(nullptr), m_numberNodes(0),m_edges(nullptr), m_numberEdges(0),matrix(nullptr), m_oriented(false){
 }
 
 Graph::~Graph()
@@ -12,9 +11,12 @@ Graph::~Graph()
     delete []m_nodes;
     delete []m_edges;
 
-    for(int i=0;i<m_numberNodes;i++)
-        delete []matrix[i];
-    delete []matrix;
+    if(matrix!=nullptr)
+    {
+        for(int i=0;i<m_numberNodes;i++)
+            delete []matrix[i];
+        delete []matrix;
+    }
 }
 
 void Graph::addNode(QPoint p)
@@ -27,12 +29,17 @@ void Graph::addNode(QPoint p)
 
     if (ok == 0)
     {
-        int* idx1 = new int[m_numberEdges];
-        int* idx2 = new int[m_numberEdges];
-        for (int i = 0; i < m_numberEdges; i++)
+        int *idx1=nullptr;
+        int *idx2=nullptr;
+        if(m_numberEdges && m_edges)
         {
-            idx1[i] = m_edges[i].getFirst()->getIndex() - 1;
-            idx2[i] = m_edges[i].getSecond()->getIndex() - 1;
+            idx1 = new int[m_numberEdges];
+            idx2 = new int[m_numberEdges];
+            for (int i = 0; i < m_numberEdges; i++)
+            {
+                idx1[i] = m_edges[i].getFirst()->getIndex() - 1;
+                idx2[i] = m_edges[i].getSecond()->getIndex() - 1;
+            }
         }
 
         Node* aux = new Node[m_numberNodes + 1];
@@ -44,13 +51,16 @@ void Graph::addNode(QPoint p)
         m_nodes = aux;
         m_numberNodes++;
 
-        for (int i = 0; i < m_numberEdges; i++)
+        if(idx1 && idx2)
         {
-            m_edges[i].setFirst(&m_nodes[idx1[i]]);
-            m_edges[i].setSecond(&m_nodes[idx2[i]]);
+            for (int i = 0; i < m_numberEdges; i++)
+            {
+                m_edges[i].setFirst(&m_nodes[idx1[i]]);
+                m_edges[i].setSecond(&m_nodes[idx2[i]]);
+            }
+            delete [] idx1;
+            delete [] idx2;
         }
-        delete [] idx1;
-        delete [] idx2;
 
         int** auxMatrix = new int*[m_numberNodes];
         for (int i = 0; i < m_numberNodes; i++)
@@ -88,12 +98,22 @@ void Graph::addNode(QPoint p)
 
 void Graph::addEgde(Node f, Node s)
 {
+    if (f.getIndex() <= 0 || f.getIndex() > m_numberNodes || s.getIndex() <= 0 || s.getIndex() > m_numberNodes)
+    {
+        return;
+    }
+
+    if (f.getIndex() == s.getIndex()) {
+        return;
+    }
+
     Node *first=&m_nodes[f.getIndex()-1];
     Node *second=&m_nodes[s.getIndex()-1];
     int ok=0;
+
     for(int i=0;i<m_numberEdges;i++)
     {
-        if(m_edges[i].getFirst()==first && m_edges[i].getSecond()==second)
+        if((m_edges[i].getFirst() == first && m_edges[i].getSecond() == second) || (!m_oriented && m_edges[i].getFirst() == second && m_edges[i].getSecond() == first))
         {
             ok=1;
             break;
@@ -134,7 +154,7 @@ void Graph::AdjustMatrix(int **matrix, QString filename)
 {
     QFile fin(filename);
     if(!fin.open(QIODeviceBase::WriteOnly|QIODeviceBase::Text))
-        throw std::runtime_error("Cannot opne the file! Please try again later");
+        throw std::runtime_error("Cannot open the file! Please try again later");
     QTextStream out(&fin);
     out<<m_numberNodes<<"\n";
     for(int i=0;i<m_numberNodes;i++)
@@ -164,3 +184,25 @@ int Graph::getNumberEdges()
 {
     return m_numberEdges;
 }
+
+int **Graph::getMatrix()
+{
+    return matrix;
+}
+
+void Graph::rebuildMatrix()
+{
+    int n=m_numberNodes;
+    for(int i=0;i<n;i++)
+        for(int j=0;j<n;j++)
+            matrix[i][j]=0;
+    for(int i=0;i<m_numberEdges;i++)
+    {
+        int z = m_edges[i].getFirst()->getIndex()-1;
+        int j = m_edges[i].getSecond()->getIndex()-1;
+        matrix[z][j]=1;
+        if(!m_oriented)
+            matrix[j][z]=1;
+    }
+}
+

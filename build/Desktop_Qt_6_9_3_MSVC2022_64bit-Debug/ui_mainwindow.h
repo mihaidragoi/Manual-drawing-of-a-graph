@@ -36,7 +36,7 @@ public:
         centralwidget->setObjectName("centralwidget");
         checkBox = new QCheckBox(centralwidget);
         checkBox->setObjectName("checkBox");
-        checkBox->setGeometry(QRect(530, 10, 92, 25));
+        checkBox->setGeometry(QRect(700, 0, 92, 25));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");

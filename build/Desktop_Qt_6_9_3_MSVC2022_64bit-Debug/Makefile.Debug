@@ -62,7 +62,7 @@ OBJECTS       = debug\edge.obj \
 		debug\node.obj \
 		debug\moc_mainwindow.obj
 
-DIST          =  ..\..\edge.h \
+DIST          = build/Desktop_Qt_6_9_3_MSVC2022_64bit-Debug/Matrix.txt ..\..\edge.h \
 		..\..\graph.h \
 		..\..\mainwindow.h \
 		..\..\node.h ..\..\edge.cpp \
@@ -1019,9 +1019,22 @@ debug\mainwindow.obj: ..\..\mainwindow.cpp ..\..\mainwindow.h \
 		C:\Qt\6.9.3\msvc2022_64\include\QtCore\QPoint \
 		..\..\edge.h \
 		ui_mainwindow.h \
+		C:\Qt\6.9.3\msvc2022_64\include\QtCore\QVariant \
+		C:\Qt\6.9.3\msvc2022_64\include\QtWidgets\QApplication \
+		C:\Qt\6.9.3\msvc2022_64\include\QtWidgets\qapplication.h \
+		C:\Qt\6.9.3\msvc2022_64\include\QtWidgets\QCheckBox \
+		C:\Qt\6.9.3\msvc2022_64\include\QtWidgets\qcheckbox.h \
+		C:\Qt\6.9.3\msvc2022_64\include\QtWidgets\qabstractbutton.h \
+		C:\Qt\6.9.3\msvc2022_64\include\QtWidgets\QMenuBar \
+		C:\Qt\6.9.3\msvc2022_64\include\QtWidgets\qmenubar.h \
+		C:\Qt\6.9.3\msvc2022_64\include\QtWidgets\qmenu.h \
+		C:\Qt\6.9.3\msvc2022_64\include\QtWidgets\QStatusBar \
+		C:\Qt\6.9.3\msvc2022_64\include\QtWidgets\qstatusbar.h \
+		C:\Qt\6.9.3\msvc2022_64\include\QtWidgets\QWidget \
 		C:\Qt\6.9.3\msvc2022_64\include\QtGui\qpainter.h \
 		C:\Qt\6.9.3\msvc2022_64\include\QtGui\qtextoption.h \
-		C:\Qt\6.9.3\msvc2022_64\include\QtGui\qpen.h
+		C:\Qt\6.9.3\msvc2022_64\include\QtGui\qpen.h \
+		C:\Qt\6.9.3\msvc2022_64\include\QtGui\QPainter
 
 debug\node.obj: ..\..\node.cpp ..\..\node.h \
 		C:\Qt\6.9.3\msvc2022_64\include\QtCore\QPoint \

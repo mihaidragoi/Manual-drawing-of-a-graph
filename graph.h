@@ -27,6 +27,8 @@ public:
     bool getOriented();
     int getNumberNodes();
     int getNumberEdges();
+    int **getMatrix();
+    void rebuildMatrix();
 };
 
 #endif // GRAPH_H
