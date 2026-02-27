@@ -1,20 +1,29 @@
-🖌️ Manual Graph Drawing Tool
-An interactive C++ desktop application built with the Qt Framework for creating and managing mathematical graphs. 🚀
+Manual Drawing of a Graph
+An interactive application designed for manually drawing, visualizing, and manipulating graphs (nodes and edges) through a Graphical User Interface (GUI), heavily utilizing pointers for efficient memory management and data linking.
 
-✨ Key Features:
+🚀 Main Features
+Interactive Drawing: Add, move, and delete nodes and edges manually using the mouse directly on the canvas.
 
-🖱️ Interactive Drawing: Add nodes with a right-click and connect them seamlessly with a left-click.
+Pointer-Based Architecture: Uses pointers extensively to link nodes and edges dynamically, ensuring efficient memory management and fast graph traversal.
 
-🤏 Manipulation: Effortlessly move nodes via drag-and-drop with built-in collision detection to keep your graph clean.
+Visual-to-Logic Mapping: Translates the visual drawings into classic graph theory data structures (e.g., adjacency lists using pointers to Node objects).
 
-🔄 Graph Types: Full support for both directed (with arrows) and undirected graphs.
+Real-Time Manipulation: The internal graph structure updates instantly as the user interacts with the graphical interface.
 
-💾 Data Export: Automatically generates and saves the adjacency matrix to Matrix.txt every time you make a change.
+📁 Project Structure
+The application architecture is divided into the following logical modules:
 
-🛠️ Tech Stack:
+GUI / Canvas: Visual components handling user input, rendering, and window management.
 
-Language: C++17
+Data Structures (Graph, Node*, Edge*): The core logic where pointers are used to connect Node instances via Edge instances, maintaining the mathematical properties of the created graph.
 
-Framework: Qt (Core, GUI, Widgets)
+Event Handlers: Captures mouse events (clicks, drags) to place nodes or draw lines (edges) between them.
 
-Rendering: QPainter for custom 2D graphics
+🛠️ Required Dependencies
+To compile and run this project, you will need:
+
+Compatible IDE (e.g., Visual Studio).
+
+Graphics Framework: The libraries required to run the UI (e.g., Qt, SFML, or another native framework).
+
+C++ Standard Libraries: For data structure and pointer management (using raw pointers or smart pointers like std::shared_ptr).
